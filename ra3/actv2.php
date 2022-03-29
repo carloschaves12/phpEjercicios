@@ -28,14 +28,14 @@ if (isset($_POST["enviar"])) {
 }
 ?>
     <form action="" method="post">
-        <span class="error"><?php echo $msgError3; ?></span><br /><br />
         <label>Primera contraseña: <input type="password" name="p1" value=<?php echo $p1; ?>></label>
         <span class="error"><?php echo $msgError1; ?></span><br /><br />
 
         <label>Segunda contraseña: <input type="password" name="p2" value=<?php echo $p2; ?>></label>
         <span class="error"><?php echo $msgError2; ?></span><br /><br />
+        <input type="submit" value="enviar" name="enviar"><br />
+        <span class="error"><?php echo $msgError3; ?></span>
 
-        <input type="submit" value="enviar" name="enviar">
     </form>
 
     <?php

@@ -1,11 +1,8 @@
 <?php
 
 $procesaFormulario = false;
-$array5 = array();
-$array4 = array();
-$array3 = array();
-$array2 = array();
-$array1 = array();
+$maximo = 0;
+$aMaximos = array();
 
 if (isset($_POST["enviar"])) {
 
@@ -13,19 +10,15 @@ if (isset($_POST["enviar"])) {
 }
 
 if ($procesaFormulario) {
-
     for ($i = 1; $i <= 10; $i++) {
-
-        if ($_POST["item" . $i] == 5) {
-            array_push($array5, "item" . $i);
-        } else if ($_POST["item" . $i] == 4) {
-            array_push($array4, "item" . $i);
-        } else if ($_POST["item" . $i] == 3) {
-            array_push($array3, "item" . $i);
-        } else if ($_POST["item" . $i] == 2) {
-            array_push($array2, "item" . $i);
-        } else if ($_POST["item" . $i] == 1) {
-            array_push($array1, "item" . $i);
+        foreach ($_POST[$i] as $key => $value) {
+            if ($value > $maximo) {
+                $maximo = $value;
+                $aMaximos = array();
+                array_push($aMaximos, $i);
+            } else if ($value == $maximo) {
+                array_push($aMaximos, $i);
+            }
         }
     }
 }
@@ -45,7 +38,11 @@ if ($procesaFormulario) {
     <form method="post">
         <?php
         for ($i = 1; $i <= 10; $i++) {
-            echo '<label> Item' . $i . ' 1<input type="radio" name="item' . $i . '" value="1"> 2<input type="radio" name="item' . $i . '" value="2"> 3<input type="radio" name="item' . $i . '" value="3"> 4<input type="radio" name="item' . $i . '" value="4"> 5<input type="radio" name="item' . $i . '" value="5"></label><br>';
+            echo "item$i";
+            for ($j = 0; $j <= 5; $j++) {
+                echo " $j<input type='radio' name='" . $i . "[]' value='$j'>";
+            }
+            echo "<br>";
         }
         ?>
 
@@ -59,32 +56,10 @@ if ($procesaFormulario) {
     </style>
 
     <?php
+
     if ($procesaFormulario) {
-        if (!empty($array5)) {
-            foreach ($array5 as $key => $value) {
-                echo $value . "<br>";
-            }
-            return;
-        } else if (!empty($array4)) {
-            foreach ($array4 as $key => $value) {
-                echo $value . "<br>";
-            }
-            return;
-        } else if (!empty($array3)) {
-            foreach ($array3 as $key => $value) {
-                echo $value . "<br>";
-            }
-            return;
-        } else if (!empty($array2)) {
-            foreach ($array2 as $key => $value) {
-                echo $value . "<br>";
-            }
-            return;
-        } else if (!empty($array1)) {
-            foreach ($array1 as $key => $value) {
-                echo $value . "<br>";
-            }
-            return;
+        foreach ($aMaximos as $key => $value) {
+            echo "item$value <br>"; 
         }
     }
     ?>

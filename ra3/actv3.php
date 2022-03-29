@@ -39,9 +39,9 @@ if ($procesaFormulario) {
     }
 
     if ($resultadoOperacion == $_POST["resultado"]) {
-        $mensaje = "El resultado es correcto";
+        $mensaje = $_POST['num1'] . $_POST['operacion'] . $_POST['num2'] . " = $resultadoOperacion. El resultado es correcto";
     } else {
-        $mensaje = "El resultado no es correcto";
+        $mensaje = $_POST['num1'] . $_POST['operacion'] . $_POST['num2'] . " = $resultadoOperacion no ". $_POST["resultado"] . " El resultado no es correcto";
     }
 }
 ?>
