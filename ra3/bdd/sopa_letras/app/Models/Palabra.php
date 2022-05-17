@@ -45,7 +45,7 @@ class Palabra extends DBAbstractModel
         }
         $this->query = "INSERT INTO palabras(palabra)
                         VALUES(:palabra)";
-        $this->parametros['palabra'] = $palabra;
+        $this->parametros['palabra'] = $user_data[0];
         $this->get_results_from_query();
         //$lastId = $this->lastInsert();
         //echo $lastId;
@@ -57,14 +57,10 @@ class Palabra extends DBAbstractModel
         foreach ($user_data as $campo => $valor) {
             $$campo = $valor;
         }
-        $this->query = "SELECT id, palabra FROM palabras WHERE id=:id";
-        $this->parametros['id'] = $id;
+        $this->query = "SELECT id, palabra FROM palabras";
         $this->get_results_from_query();
         $resultado = $this->rows;
-        foreach ($resultado as $value) {
-            echo $value['id'] . ", " . $value['palabra'] . "</br>";
-        }
-        //echo $this->mensaje = 'palabra obtenida correctamente';
+        return $resultado;
     }
 
     public function delete($user_data = array())
@@ -73,7 +69,7 @@ class Palabra extends DBAbstractModel
             $$campo = $valor;
         }
         $this->query = "DELETE FROM palabras WHERE id=:id";
-        $this->parametros['id'] = $id;
+        $this->parametros['id'] = $user_data[0];
         $this->get_results_from_query();
         //echo $this->mensaje = 'palabra eliminada correctamente';
     }
@@ -84,12 +80,21 @@ class Palabra extends DBAbstractModel
             $$campo = $valor;
         }
         $this->query = "UPDATE palabras SET palabra=:palabra WHERE id=:id";
-        $this->parametros['palabra'] = $palabra;
-        $this->parametros['id'] = $id;
+        $this->parametros['palabra'] = $user_data[0];
+        $this->parametros['id'] = $user_data[1];
         $this->get_results_from_query();
-        //echo $this->mensaje = 'palabra actulizada correctamente';
+        //echo $this->mensaje = 'palabra correctamente';
     }
 
+    public function getByNombre($palabra)
+    {
+        $palabra = "%" . $palabra . "%";
+
+        $this->query = "SELECT palabra, id FROM palabras WHERE palabra LIKE :palabra";
+        $this->parametros['palabra'] = $palabra;
+        $this->get_results_from_query();
+        return $this->rows;
+    }
 
     public function setEntity(){}
     public function getEntity($id){}
