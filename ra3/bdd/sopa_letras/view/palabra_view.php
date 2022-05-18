@@ -17,7 +17,7 @@
             'perfil' => ''
         );
     }
-    print_r($_SESSION['usuario']);
+
     ?>
 
     <h1>Palabras</h1>

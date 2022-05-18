@@ -1,5 +1,7 @@
 <?php
+
 use App\Models\User;
+
 require_once("..\app\Config\constantes.php");
 
 $user = new User();
@@ -14,15 +16,13 @@ if (!isset($_SESSION['usuario'])) {
 
 if (isset($_POST['enviar'])) {
     $resultado = $user->get([$_POST['usuario'], $_POST['contrasena']]);
-    print_r($resultado);
-    if ($_POST['usuario'] == "admin" && $_POST['contrasena'] == "admin") {
-        $_SESSION['usuario']['perfil'] = "admin";
-        $_SESSION['usuario']['usuario'] = "admin";
-    } else {
-        $_SESSION['usuario']['perfil'] = "invitado";
-        $_SESSION['usuario']['usuario'] = "invitado";
+    if (!empty($resultado)) {
+        foreach ($resultado as $value) {
+            $_SESSION['usuario']['perfil'] = $value['perfil'];
+            $_SESSION['usuario']['usuario'] = $value['usuario'];
+        }
     }
-    //header('location:' . DIRBASEURL . '/palabra');
+    header('location:' . DIRBASEURL . '/palabra');
 }
 ?>
 

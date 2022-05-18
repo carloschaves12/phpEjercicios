@@ -25,13 +25,13 @@ class defaultController extends BaseController
             $this->renderHTML('..\view\palabra_view.php', $data);
         }
     }
-    
+
     public function annadirPalabraAction()
     {
         $data = array();
         $palabra = Palabra::getInstancia();
 
-        if(isset($_POST["añadir"])) {
+        if (isset($_POST["añadir"])) {
             $palabra->set([$_POST["palabra"]]);
             header('location:' . DIRBASEURL . '/palabra');
         } else {
@@ -41,10 +41,16 @@ class defaultController extends BaseController
 
     public function borrarPalabraAction($id)
     {
-        $palabra = Palabra::getInstancia();
+        session_start();
 
-        $palabra->delete([$id]);
-        header('location:' . DIRBASEURL . '/palabra');
+        if ($_SESSION['usuario']['usuario'] != "admin" && $_SESSION['usuario']['perfil'] != "admin") {
+            header('location:' . DIRBASEURL . '/palabra');
+        } else {
+            $palabra = Palabra::getInstancia();
+
+            $palabra->delete([$id]);
+            header('location:' . DIRBASEURL . '/palabra');
+        }
     }
 
     public function editarPalabraAction($id, $palabraAntigua)
@@ -52,7 +58,7 @@ class defaultController extends BaseController
         $data = array($palabraAntigua);
         $palabra = Palabra::getInstancia();
 
-        if(isset($_POST["editar"])) {
+        if (isset($_POST["editar"])) {
             $palabra->edit([$_POST["palabra"], $id]);
             header('location:' . DIRBASEURL . '/palabra');
         } else {
