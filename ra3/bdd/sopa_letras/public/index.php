@@ -14,6 +14,10 @@ if ($ruta[1] == "/palabra") {
     $controlador->borrarPalabraAction(explode("/", $ruta[1])[3]);
 } else if (explode("/", $ruta[1])[1] == "palabra" && explode("/", $ruta[1])[2] == "edit" && preg_match("/\d{1,}/", explode("/", $ruta[1])[3]) == 1 && preg_match("/\w{1,}/", explode("/", $ruta[1])[4]) == 1) {
     $controlador->editarPalabraAction(explode("/", $ruta[1])[3], explode("/", $ruta[1])[4]);
+} else if ($ruta[1] == "/palabra/login") {
+    $controlador->loginPalabraAction();
+} else if ($ruta[1] == "/palabra/cierra_sesion") {
+    $controlador->cerrarSesionPalabraAction();
 } else {
     echo "Not found";
 }

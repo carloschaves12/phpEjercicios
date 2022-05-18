@@ -59,4 +59,14 @@ class defaultController extends BaseController
             $this->renderHTML('..\view\palabra_edit_view.php', $data);
         }
     }
+
+    public function loginPalabraAction()
+    {
+        $this->renderHTML('..\view\palabra_login_view.php');
+    }
+
+    public function cerrarSesionPalabraAction()
+    {
+        $this->renderHTML('..\view\palabra_cerrarSesion_view.php');
+    }
 }
