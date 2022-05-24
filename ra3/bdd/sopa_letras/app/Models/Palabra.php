@@ -28,6 +28,10 @@ class Palabra extends DBAbstractModel
         $this->palabra = $palabra;
     }
     
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
     public function setId($id)
     {
         $this->id = $id;
@@ -38,60 +42,46 @@ class Palabra extends DBAbstractModel
         return $this->id;
     }
 
-    public function set($user_data = array())
+    public function set()
     {
-        foreach ($user_data as $campo => $valor) {
-            $$campo = $valor;
-        }
         $this->query = "INSERT INTO palabras(palabra)
                         VALUES(:palabra)";
-        $this->parametros['palabra'] = $user_data[0];
+        $this->parametros['palabra'] = $this->palabra;
         $this->get_results_from_query();
         //$lastId = $this->lastInsert();
         //echo $lastId;
         //echo $this->mensaje = 'palabra agregada correctamente';
     }
 
-    public function get($user_data = array())
+    public function get()
     {
-        foreach ($user_data as $campo => $valor) {
-            $$campo = $valor;
-        }
         $this->query = "SELECT id, palabra FROM palabras";
         $this->get_results_from_query();
         $resultado = $this->rows;
         return $resultado;
     }
 
-    public function delete($user_data = array())
+    public function delete()
     {
-        foreach ($user_data as $campo => $valor) {
-            $$campo = $valor;
-        }
         $this->query = "DELETE FROM palabras WHERE id=:id";
-        $this->parametros['id'] = $user_data[0];
+        $this->parametros['id'] = $this->id;
         $this->get_results_from_query();
         //echo $this->mensaje = 'palabra eliminada correctamente';
     }
 
-    public function edit($user_data = array())
+    public function edit()
     {
-        foreach ($user_data as $campo => $valor) {
-            $$campo = $valor;
-        }
         $this->query = "UPDATE palabras SET palabra=:palabra WHERE id=:id";
-        $this->parametros['palabra'] = $user_data[0];
-        $this->parametros['id'] = $user_data[1];
+        $this->parametros['palabra'] = $this->palabra;
+        $this->parametros['id'] = $this->id;
         $this->get_results_from_query();
         //echo $this->mensaje = 'palabra correctamente';
     }
 
-    public function getByNombre($palabra)
+    public function getByNombre()
     {
-        $palabra = "%" . $palabra . "%";
-
         $this->query = "SELECT palabra, id FROM palabras WHERE palabra LIKE :palabra";
-        $this->parametros['palabra'] = $palabra;
+        $this->parametros['palabra'] = $this->palabra;
         $this->get_results_from_query();
         return $this->rows;
     }

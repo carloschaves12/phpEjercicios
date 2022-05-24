@@ -1,14 +1,26 @@
 <?php
-session_start();
-
-if ($_SESSION['usuario']['usuario'] != "admin" && $_SESSION['usuario']['perfil'] != "admin") {
-    header('location:' . DIRBASEURL . '/palabra');
-}
+require_once('..\app\Config\constantes.php');
 ?>
 
-<form method="post">
+<!DOCTYPE html>
+<html lang="en">
 
-    <input type="text" name="palabra" placeholder="Introduce la capital">
-    <input type="submit" value="Añadir" name="añadir">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-</form>
+<body>
+    <h1><a href="<?php echo DIRBASEURL . '/palabra' ?>">Palabras</a></h1>
+
+    <form method="post">
+
+        <input type="text" name="palabra" placeholder="Introduce la capital">
+        <input type="submit" value="Añadir" name="añadir">
+
+    </form>
+</body>
+
+</html>

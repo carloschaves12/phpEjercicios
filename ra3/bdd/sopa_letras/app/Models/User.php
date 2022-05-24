@@ -24,28 +24,43 @@ class User extends DBAbstractModel
     private $contrasena;
     private $perfil;
 
-    public function setNombre($usuario)
+    public function setUsuario($usuario)
     {
         $this->usuario = $usuario;
     }
     
-    public function setPassword($contrasena)
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    public function setContrasena($contrasena)
     {
         $this->contrasena = $contrasena;
     }
 
+    public function getContrasena()
+    {
+        return $this->contrasena;
+    }
+  
+    public function setPerfil($perfil)
+    {
+        $this->perfil = $perfil;
+    }
+
+    public function getPerfil()
+    {
+        return $this->perfil;
+    }
 
     public function set($user_data = array()){}
 
-    public function get($user_data = array())
-    {
-        foreach ($user_data as $campo => $valor) {
-            $$campo = $valor;
-        }
-        
+    public function get()
+    {      
         $this->query = "SELECT usuario, contrasena, perfil FROM usuarios WHERE usuario=:usuario AND contrasena=:contrasena";
-        $this->parametros['usuario'] = $user_data[0];
-        $this->parametros['contrasena'] = $user_data[1];
+        $this->parametros['usuario'] = $this->usuario;
+        $this->parametros['contrasena'] = $this->contrasena;
         $this->get_results_from_query();
         $resultado = $this->rows;
         return $resultado;

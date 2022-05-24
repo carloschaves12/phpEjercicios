@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Palabra;
+use App\Models\User;
 
 require_once('..\app\Config\constantes.php');
 
@@ -16,7 +17,8 @@ class defaultController extends BaseController
         $palabra = Palabra::getInstancia();
 
         if (isset($_POST['buscar'])) {
-            $data = $palabra->getByNombre($_POST['palabra']);
+            $palabra->setNombre($_POST['palabra']);
+            $data = $palabra->getByNombre();
             $this->renderHTML('..\view\palabra_view.php', $data);
         } else if (isset($_POST['añadir'])) {
             header('location:' . DIRBASEURL . '/palabra/add');
@@ -32,34 +34,37 @@ class defaultController extends BaseController
         $palabra = Palabra::getInstancia();
 
         if (isset($_POST["añadir"])) {
-            $palabra->set([$_POST["palabra"]]);
+            $palabra->setNombre($_POST["palabra"]);
+            $palabra->set();
             header('location:' . DIRBASEURL . '/palabra');
         } else {
             $this->renderHTML('..\view\palabra_add_view.php', $data);
         }
     }
 
-    public function borrarPalabraAction($id)
+    public function borrarPalabraAction($request)
     {
-        session_start();
+        $id = explode('/', $request)[3];
 
-        if ($_SESSION['usuario']['usuario'] != "admin" && $_SESSION['usuario']['perfil'] != "admin") {
-            header('location:' . DIRBASEURL . '/palabra');
-        } else {
-            $palabra = Palabra::getInstancia();
+        $palabra = Palabra::getInstancia();
 
-            $palabra->delete([$id]);
-            header('location:' . DIRBASEURL . '/palabra');
-        }
+        $palabra->setId($id);
+        $palabra->delete();
+        header('location:' . DIRBASEURL . '/palabra');
     }
 
-    public function editarPalabraAction($id, $palabraAntigua)
+    public function editarPalabraAction($request)
     {
+        $id = explode('/', $request)[3];
+        $palabraAntigua = explode('/', $request)[4];
         $data = array($palabraAntigua);
+
         $palabra = Palabra::getInstancia();
 
         if (isset($_POST["editar"])) {
-            $palabra->edit([$_POST["palabra"], $id]);
+            $palabra->setId($id);
+            $palabra->setNombre($_POST["palabra"]);
+            $palabra->edit();
             header('location:' . DIRBASEURL . '/palabra');
         } else {
             $this->renderHTML('..\view\palabra_edit_view.php', $data);
@@ -68,11 +73,30 @@ class defaultController extends BaseController
 
     public function loginPalabraAction()
     {
-        $this->renderHTML('..\view\palabra_login_view.php');
+        if (isset($_POST['enviar'])) {
+            $user = User::getInstancia();
+            $user->setUsuario($_POST['usuario']);
+            $user->setContrasena($_POST['contrasena']);
+            $resultado = $user->get();
+            if (!empty($resultado)) {
+                foreach ($resultado as $value) {
+                    $_SESSION['usuario']['perfil'] = $value['perfil'];
+                    $_SESSION['usuario']['usuario'] = $value['usuario'];
+                    header('location:' . DIRBASEURL . '/palabra');
+                }
+            } else {
+                header('location:' . DIRBASEURL . '/palabra/login');
+            }
+        } else {
+            $this->renderHTML('..\view\palabra_login_view.php');
+        }
     }
 
     public function cerrarSesionPalabraAction()
     {
-        $this->renderHTML('..\view\palabra_cerrarSesion_view.php');
+        session_start();
+        unset($_SESSION['usuario']);
+        session_destroy();
+        header('Location:' . DIRBASEURL . "/palabra/login");
     }
 }
