@@ -1,9 +1,7 @@
 <?php
 
 $ejercicios = array (
-    array ('id'=>1, 'titulo'=>'Guardar usuario y contraseña', 'descripcion'=>'Guarda en una cookie el usuario y contraseña.', 'enlace'=>'sesionCookies.php', 'codigo'=>'https://github.com/carloschaves12/phpEjercicios/blob/main/ra3/cookies/sesionCookies.php')    
-);
-
+    array ('id'=>1, 'titulo'=>'Sopa de Letras', 'descripcion'=>'Uso de objetos para mostrar capitales y su posición de inicio y final.', 'enlace'=>'ej1/public/index.php', 'codigo'=>'https://github.com/carloschaves12/phpEjercicios/blob/main/ra3/objetos/ej1/public/index.php'))
 ?>
 
 <!DOCTYPE html>

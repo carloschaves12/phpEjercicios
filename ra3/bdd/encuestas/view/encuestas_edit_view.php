@@ -19,6 +19,15 @@ require_once('..\app\Config\constantes.php');
         <input type="text" name="descripcion" placeholder="Introduce la nueva descripcion" value="<?php echo (str_replace("%20", " ", $data[0])); ?>">
         </label>
         <br>
+        <br>
+        Selecciona las preguntas que quieres que quieras añadir a la encuesta:
+        <br>
+        <?php
+        foreach ($data["preguntas"] as $preguntas) {
+            echo "<input type='checkbox' name='pregunta[]' value='" . $preguntas["id"] . "'>" . $preguntas["descripcion"] . "<br>";
+        }
+        ?>
+        <br>
         <input type="submit" value="Editar" name="editar">
     </form>
 </body>

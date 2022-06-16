@@ -13,14 +13,12 @@
     <h1><a href="<?php echo DIRBASEURL . '/encuestas' ?>">Encuestas</a></h1>
 
     <form method="post">
-        <input type="text" name="descripcion" placeholder="Introduce una descripcion">
-        <input type="submit" value="Buscar" name="buscar">
         <?php
         echo "<a href='" . DIRBASEURL . "/encuestas/cierra_sesion" . "'>Cerrar sesión</a>";
         echo "<br>";
         echo "Estas logueado como: " . $_SESSION["usuario"]["perfil"];
         ?>
-
+        <br>
         <select name="encuesta">
             <?php
             foreach ($data as $value) {

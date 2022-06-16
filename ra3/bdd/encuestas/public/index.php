@@ -76,6 +76,12 @@ $router->add(array(
     'auth' => ["admin", "usuario"]
 ));
 
+$router->add(array(
+    'name' => 'crearEncuestas',
+    'path' => '/^\/encuestas\/crearEncuesta$/',
+    'action' => [EncuestasController::class, 'crearEncuestasAction'],
+    'auth' => ["admin", "usuario"]
+));
 
 $request = str_replace(DIRBASEURL, '', $_SERVER['REQUEST_URI']);
 $route = $router->matchs($request);

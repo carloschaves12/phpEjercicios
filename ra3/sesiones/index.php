@@ -1,9 +1,7 @@
 <?php
 
 $ejercicios = array (
-    array ('id'=>1, 'titulo'=>'Guardar usuario y contraseña', 'descripcion'=>'Guarda en una cookie el usuario y contraseña.', 'enlace'=>'sesionCookies.php', 'codigo'=>'https://github.com/carloschaves12/phpEjercicios/blob/main/ra3/cookies/sesionCookies.php')    
-);
-
+    array ('id'=>1, 'titulo'=>'Sopa de letras', 'descripcion'=>'Implementa la jugabilidad de una sopa de letras mediante el uso de sesiones.', 'enlace'=>'sopaDeLetras.php', 'codigo'=>'https://github.com/carloschaves12/phpEjercicios/blob/main/ra3/sesiones/sopaDeLetras.php'))
 ?>
 
 <!DOCTYPE html>

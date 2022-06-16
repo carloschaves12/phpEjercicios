@@ -20,27 +20,19 @@
         ?>
     <br>
 
-    <table class="demo">
-        <thead>
-            <tr>
-                <th>descripcion</th>
-                <th>fecha</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($data as $value) {
-                echo "<tr>";
-                echo "<td>" . $value["descripcion"] . "</td> <td>" . $value["fecha"] . "</td> <td><a href='" . DIRBASEURL . "/encuestas/del/" . $value["id"] . "'>Del</a></td> <td> <a href='" . DIRBASEURL . "/encuestas/edit/" . $value["id"] . "/" . $value["descripcion"] . "'>Edit</a></td> </br>";
-                echo "</tr>";
-            }
-            ?>
-        <tbody>
-    </table>
-
-    <br>
     <form method="post">
-        <input type="submit" name="añadir" value="Añadir encuesta">
+        <label>
+            Introduce una encuesta: <input type="text" name="encuesta">
+        </label>
+
+        <?php
+        foreach ($data["preguntas"] as $preguntas) {
+            echo "<br>";
+            echo "<input type='checkbox' name='idPreguntas[]' value='" . $preguntas["id"] . "'>" . $preguntas["descripcion"] . "<br>";
+        }
+        ?>
+
+        <input type="submit" name="enviar" value="Enviar">
     </form>
 </body>
 <style>

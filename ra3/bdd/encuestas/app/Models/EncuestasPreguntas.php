@@ -3,7 +3,7 @@
 namespace App\Models;
 require_once("DBAbstractModel.php");
 
-class Preguntas extends DBAbstractModel
+class EncuestasPreguntas extends DBAbstractModel
 {
     /*CONSTRUCCIÓN DEL MODELO SINGLETON*/
     private static $instancia;
@@ -21,8 +21,8 @@ class Preguntas extends DBAbstractModel
     }
 
     private $id;
-    private $descripcion;
-    private $opciones = array();
+    private $idPregunta;
+    private $idEncuesta;
 
     public function setId($id)
     {
@@ -34,45 +34,46 @@ class Preguntas extends DBAbstractModel
         return $this->id;
     }
 
-    public function setDescripcion($descripcion)
+    public function setIdPregunta($idPregunta)
     {
-        $this->descripcion = $descripcion;
+        $this->idPregunta = $idPregunta;
     }
 
-    public function getDescripcion()
+    public function getidPregunta()
     {
-        return $this->descripcion;
+        return $this->idPregunta;
+    }
+
+    public function setIdEncuesta($idEncuesta)
+    {
+        $this->idEncuesta = $idEncuesta;
+    }
+
+    public function getIdEncuesta()
+    {
+        return $this->idEncuesta;
     }
 
     public function set(){
-        $this->query = "INSERT INTO preguntas(descripcion) VALUES(:descripcion)";
-        $this->parametros['descripcion'] = $this->descripcion;
+        $this->query = "INSERT INTO encuestas_preguntas(idPregunta, idEncuesta) VALUES(:idPregunta, :idEncuesta)";
+        $this->parametros['idPregunta'] = $this->idPregunta;
+        $this->parametros['idEncuesta'] = $this->idEncuesta;
         $this->get_results_from_query();
     }
 
     public function get()
     {        
-        $this->query = "SELECT id, descripcion FROM preguntas";
-        $this->get_results_from_query();
-        $resultado = $this->rows;
-        return $resultado;
     }
 
     public function delete() {
-        $this->query = "DELETE FROM preguntas WHERE id=:id";
-        $this->parametros['id'] = $this->id;
-        $this->get_results_from_query();
     }
 
     public function edit() {
-        $this->query = "UPDATE preguntas SET descripcion=:descripcion WHERE id=:id";
-        $this->parametros['id'] = $this->id;
-        $this->get_results_from_query();
     }
 
     public function getById() {
-        $this->query = "SELECT id, descripcion FROM preguntas WHERE id=:id";
-        $this->parametros['id'] = $this->id;
+        $this->query = "SELECT id, idPregunta, idEncuesta FROM encuestas_preguntas WHERE idEncuesta=:idEncuesta";
+        $this->parametros['idEncuesta'] = $this->idEncuesta;
         $this->get_results_from_query();
         $resultado = $this->rows;
         return $resultado;

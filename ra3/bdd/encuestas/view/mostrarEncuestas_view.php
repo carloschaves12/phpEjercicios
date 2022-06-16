@@ -13,27 +13,19 @@
     <h1><a href="<?php echo DIRBASEURL . '/encuestas' ?>">Encuestas</a></h1>
     <form method="post">
         <?php
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-        // foreach ($data as $key => $value) {
-        //     foreach ($value as $key2 => $value2) {
-        //         foreach ($value2 as $key3 => $value3) {
-        //             var_dump($value3["idPregunta"]);
-
-        //             if ($key3 == "descripcion") {
-        //                 echo $value3;
-        //             } else if ($key3 == "opciones") {
-        //                 echo "<input type='radio' name='" . $value3 == "idPregunta" . "' value='$value3'>$value3<br>";
-        //             }
-        //         }
-        //         echo "<br>";
-        //     }
-        // }
-
-        if (isset($_POST["enviar"])) {
-           print_r($_POST);
+        foreach ($data["preguntas"] as $preguntas) {
+            echo $preguntas[0]["descripcion"];
+            echo "<br>";
+            foreach ($data["opciones"] as $opciones) {
+                for ($i = 0; $i < count($opciones); $i++) {
+                    if ($preguntas[0]["id"] == $opciones[0]["idPregunta"]) {
+                        echo "<input type='radio' name='idPreguntas[]" . $preguntas[0]["id"] . "' value='" . $opciones[$i]["id"] . "'>" . $opciones[$i]["opciones"] . "<br>";
+                    }
+                }
+            }
+            echo "<br>";
         }
+
         ?>
         <input type="submit" name="enviar" value="Enviar">
     </form>
